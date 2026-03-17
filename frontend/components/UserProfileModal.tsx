@@ -97,9 +97,11 @@ export function UserProfileModal({
       } else {
         setError(result.message || "Failed to save profile. Please try again.");
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error("Failed to save profile:", err);
-      setError(`Failed to save profile. ${err.response?.data?.detail || "Please try again."}`);
+      const errorMessage = err instanceof Error ? err.message : "Please try again.";
+      const responseDetail = (err as { response?: { data?: { detail?: string } } }).response?.data?.detail;
+      setError(`Failed to save profile. ${responseDetail || errorMessage}`);
     } finally {
       setSaving(false);
     }

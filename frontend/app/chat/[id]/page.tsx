@@ -5,12 +5,12 @@ import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot, ArrowLeft, Send, User, LogOut, Sparkles, Heart, Users, Home, Briefcase, Ghost } from "lucide-react";
+import { Bot, ArrowLeft, Send, User, LogOut } from "lucide-react";
 import Link from "next/link";
 import { personaApi, chatApi, Persona, Conversation, userProfileApi } from "@/services/api";
 import { AIAvatar } from "@/components/AIAvatar";
 import { ChatBackground } from "@/components/ChatBackground";
+import Image from "next/image";
 
 const getRelationshipStyle = (relationship: string, name: string, avatar_image?: string, avatar_seed?: string) => {
   const rel = relationship.toLowerCase();
@@ -199,16 +199,17 @@ export default function ChatPage() {
               </Link>
               <div className="flex items-center gap-5">
                 <div className="relative">
-                  <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    className="w-14 h-14 rounded-2xl border border-white/10 shadow-2xl relative z-10 overflow-hidden bg-white/5 pt-1"
-                  >
-                    <img 
-                      src={relStyle.avatarUrl} 
-                      alt={persona.name} 
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
+                    <motion.div 
+                      whileHover={{ scale: 1.05 }}
+                      className="w-14 h-14 rounded-2xl border border-white/10 shadow-2xl relative z-10 overflow-hidden bg-white/5 pt-1"
+                    >
+                      <Image 
+                        src={relStyle.avatarUrl} 
+                        alt={persona.name} 
+                        fill
+                        className="object-cover"
+                      />
+                    </motion.div>
                   <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-[#0a0a1a] rounded-full shadow-lg z-20" />
                 </div>
                 <div>

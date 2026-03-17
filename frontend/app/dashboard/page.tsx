@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot, MessageSquare, Plus, Trash2, User, Heart, Home, Users, Ghost, Briefcase, Sparkles, LogOut, Settings } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Bot, MessageSquare, Plus, Trash2, User, LogOut } from "lucide-react";
 import Link from "next/link";
 import { personaApi, Persona, userProfileApi } from "@/services/api";
 import { useRouter } from "next/navigation";
@@ -13,6 +12,7 @@ import { useSession, signOut } from "next-auth/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserProfileModal } from "@/components/UserProfileModal";
+import Image from "next/image";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
@@ -242,10 +242,11 @@ export default function DashboardPage() {
                           whileHover={{ scale: 1.02 }}
                           className={`w-24 h-24 rounded-2xl border border-white/10 shadow-2xl relative z-10 overflow-hidden bg-white/5 group-hover:border-white/20 transition-all duration-500 pt-1`}
                         >
-                          <img 
+                          <Image 
                             src={style.avatarUrl} 
                             alt={persona.name} 
-                            className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 ease-out"
+                            fill
+                            className="object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 ease-out"
                           />
                         </motion.div>
 
@@ -271,7 +272,7 @@ export default function DashboardPage() {
                           {persona.personality.split('.')[0]}.
                         </p>
                         <p className="text-[13px] text-slate-500 italic font-medium leading-relaxed opacity-60 line-clamp-3 pl-4 border-l-2 border-white/5">
-                          "{persona.personality}"
+                          &quot;{persona.personality}&quot;
                         </p>
                       </div>
                     </CardContent>

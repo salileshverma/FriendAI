@@ -1,9 +1,8 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import { NextAuthOptions } from "next-auth"
 import jwt from "jsonwebtoken"
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -29,9 +28,10 @@ export const authOptions: NextAuthOptions = {
       }
       return token
     },
-    async session({ session, token }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async session({ session, token }: any) {
       if (session.user) {
-        (session.user as any).id = token.id
+        session.user.id = token.id
         
         // Generate a standard JWT for the FastAPI backend containing the user's ID and email
         const tokenPayload = {
@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
           expiresIn: "30d"
         })
         
-        ;(session as any).jwt = jwtToken
+        session.jwt = jwtToken
       }
       return session
     },
@@ -53,8 +53,6 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
-}
-
-const handler = NextAuth(authOptions)
+})
 
 export { handler as GET, handler as POST }

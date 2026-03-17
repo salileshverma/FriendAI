@@ -13,6 +13,7 @@ import Link from "next/link";
 import { personaApi, PersonaCreate, userProfileApi } from "@/services/api";
 import { RefreshCw } from "lucide-react";
 import { UserProfileModal } from "@/components/UserProfileModal";
+import Image from "next/image";
 
 const AVATAR_OPTIONS = [
   { id: 'lorelei', label: 'Lorelei' },
@@ -123,17 +124,18 @@ export default function CreatePersonaPage() {
       } else {
         alert(`Failed to create persona: ${result.message}`);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Failed to create persona:", error);
-      const detail = error.response?.data?.detail;
+      const err = error as { response?: { data?: { detail?: string | { loc: string[]; msg: string }[] } }; message?: string };
+      const detail = err.response?.data?.detail;
       let errorMessage = "Unknown error";
       
       if (Array.isArray(detail)) {
-        errorMessage = detail.map((err: any) => `${err.loc.join('.')}: ${err.msg}`).join('\n');
+        errorMessage = detail.map((e) => `${e.loc.join('.')}: ${e.msg}`).join('\n');
       } else if (typeof detail === 'string') {
         errorMessage = detail;
       } else {
-        errorMessage = error.message || "Unknown error";
+        errorMessage = err.message || "Unknown error";
       }
       
       alert(`Failed to create persona:\n${errorMessage}`);
@@ -210,10 +212,11 @@ export default function CreatePersonaPage() {
                         }`}
                       >
                         <div className="aspect-square rounded-xl overflow-hidden bg-white/5">
-                          <img 
+                          <Image 
                             src={`https://api.dicebear.com/7.x/${option.id}/svg?seed=${formData.avatar_seed}`} 
                             alt={option.label}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                           />
                         </div>
                         <div className={`mt-2 text-[10px] font-black uppercase tracking-tighter text-center transition-colors ${
@@ -272,7 +275,7 @@ export default function CreatePersonaPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="appearance">Appearance & Presentation</Label>
+                  <Label htmlFor="appearance">Appearance &amp; Presentation</Label>
                   <Textarea 
                     id="appearance" 
                     name="appearance" 
@@ -310,7 +313,7 @@ export default function CreatePersonaPage() {
                 </div>
 
                 <div className="space-y-2 border-t border-border pt-6 mt-6">
-                  <Label htmlFor="habits">Habits & Quirks</Label>
+                  <Label htmlFor="habits">Habits &amp; Quirks</Label>
                   <Input 
                     id="habits" 
                     name="habits" 
@@ -322,7 +325,7 @@ export default function CreatePersonaPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="interests">Interests & Hobbies</Label>
+                  <Label htmlFor="interests">Interests &amp; Hobbies</Label>
                   <Input 
                     id="interests" 
                     name="interests" 
