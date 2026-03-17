@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Secrets & Environment
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Next.js Build
+.next/
+out/
+build/
+
+# IDEs & System
+.DS_Store
+.vscode/
+.idea/
+.gemini/
+
+# Databases & Local Data
+backend/chroma_data/
+*.db
+*.log
+
+# Personal/Temp scripts
+tmp/
+*.json
+!package.json
+!tsconfig.json
+!components.json
