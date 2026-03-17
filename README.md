@@ -34,7 +34,7 @@
 
 1. **Clone the repository**:
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/salileshverma/FriendAI.git
    cd ppproject
    ```
 
@@ -50,17 +50,7 @@
    - Install dependencies: `npm install`
    - Start the dev server: `npm run dev`
 
-## 📦 Deployment Guide
 
-### Frontend (Vercel)
-1. Connect your GitHub repository to [Vercel](https://vercel.com).
-2. Set your environment variables in the Vercel dashboard.
-3. Deploy!
-
-### Backend (Render / Fly.io / Railway)
-1. Hosted platforms like Render work best for FastAPI.
-2. Ensure you have a persistent disk for the `chroma_data` folder if not using a cloud vector store.
-3. Configure your `DATABASE_URL` (NeonDB) and `GROQ_API_KEY`.
 
 ---
 *Created with ❤️ for a more human AI experience.*
